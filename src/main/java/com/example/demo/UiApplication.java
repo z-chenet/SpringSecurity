@@ -35,10 +35,10 @@ public class UiApplication {
         return model;
     }
 
-    @GetMapping(value = "/{path:[^\\.]*}")
-    public String redirect() {
-        return "forward:/";
-    }
+  @GetMapping(value = "/{path:[^\\.]*}")
+  public String redirect() {
+    return "forward:/";
+  }
 
     public static void main(String[] args) {
         SpringApplication.run(UiApplication.class, args);
@@ -49,7 +49,7 @@ public class UiApplication {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/*.bundle.*", "/favicon.ico");
+            web.ignoring().antMatchers("/*.js", "/*.bundle.*", "/favicon.ico");
         }
 
         @Override
