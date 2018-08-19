@@ -8,6 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,11 @@ public class UiApplication {
 	  return user;
   }
 
+  @GetMapping(value = "/{path:[^\\.]*}")
+  public String redirect() {
+    return "forward:/";
+  }
+
   @Configuration
   protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
@@ -52,9 +58,11 @@ public class UiApplication {
       http
         .httpBasic()
         .and()
-        .authorizeRequests()
-        .antMatchers("/index.html", "/", "/home", "/login").permitAll()
-        .anyRequest().authenticated();
+          .authorizeRequests()
+          .antMatchers("/index.html", "/", "/home", "/login").permitAll()
+          .anyRequest().authenticated()
+        .and().csrf()
+          .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
   }
 
