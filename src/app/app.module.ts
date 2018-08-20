@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login.component';
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
 import {
   HttpEvent,
   HttpInterceptor,
@@ -15,7 +16,6 @@ import {
   HTTP_INTERCEPTORS,
   HttpClientModule
 } from '@angular/common/http';
-import {Observable} from 'rxjs';
 
 @Injectable()
 export class CustomInterceptor implements HttpInterceptor {
@@ -54,8 +54,7 @@ const routes: Routes = [
     FormsModule
   ],
   providers: [AppService,
-    { provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: c2, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
