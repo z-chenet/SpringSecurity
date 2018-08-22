@@ -2,6 +2,10 @@ spring:
   security:
     user:
       password: password
+  session:
+    store-type: redis
 logging:
   level:
     org.springframework.security: DEBUG
+
+
